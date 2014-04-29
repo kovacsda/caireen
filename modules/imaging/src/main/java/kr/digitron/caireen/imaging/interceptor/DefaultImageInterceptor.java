@@ -1,28 +1,28 @@
 package kr.digitron.caireen.imaging.interceptor;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
 
-public abstract class DefaultImageInterceptor implements ImageInterceptor {
+import kr.digitron.caireen.common.service.DefaultListenableService;
 
-    private final List<CaptureImageListener> listeners = new ArrayList<>();
+public abstract class DefaultImageInterceptor extends DefaultListenableService<CaptureImageListener, BufferedImage> implements ImageInterceptor {
+
+    private final Object lock = new Object();
 
     @Override
     public void addListener(final CaptureImageListener listener) {
-	synchronized (listeners) {
-	    if (listeners.size() == 0) {
+	synchronized (lock) {
+	    super.addListener(listener);
+	    if (getListenerCount() == 1) {
 		startCapture();
 	    }
-	    listeners.add(listener);
 	}
     }
 
     @Override
     public boolean removeListener(final CaptureImageListener listener) {
-	synchronized (listeners) {
-	    boolean result = listeners.remove(listener);
-	    if (listeners.size() == 0) {
+	synchronized (lock) {
+	    boolean result = super.removeListener(listener);
+	    if (getListenerCount() == 0) {
 		stopCapture();
 	    }
 	    return result;
@@ -31,16 +31,15 @@ public abstract class DefaultImageInterceptor implements ImageInterceptor {
 
     @Override
     public void removeAllListener() {
-	synchronized (listeners) {
-	    listeners.clear();
+	synchronized (lock) {
+	    super.removeAllListener();
 	    stopCapture();
 	}
     }
 
-    protected void fireEvent(final BufferedImage image) {
-	for (CaptureImageListener listener : listeners) {
-	    listener.captureImage(image);
-	}
+    @Override
+    protected void callListener(final CaptureImageListener listener, final BufferedImage image) {
+	listener.captureImage(image);
     }
 
     protected abstract void startCapture();

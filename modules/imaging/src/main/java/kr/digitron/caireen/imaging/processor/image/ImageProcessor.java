@@ -1,4 +1,4 @@
-package kr.digitron.caireen.imaging.processor;
+package kr.digitron.caireen.imaging.processor.image;
 
 import java.awt.image.BufferedImage;
 

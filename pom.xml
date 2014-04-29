@@ -32,6 +32,11 @@
 				<artifactId>webcam-capture</artifactId>
 				<version>${com.github.sarxos.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>kr.digitron.caireen</groupId>
+				<artifactId>common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 

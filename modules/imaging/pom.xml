@@ -17,5 +17,9 @@
 			<groupId>com.github.sarxos</groupId>
 			<artifactId>webcam-capture</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>kr.digitron.caireen</groupId>
+			<artifactId>common</artifactId>
+		</dependency>
 	</dependencies>
 </project>
