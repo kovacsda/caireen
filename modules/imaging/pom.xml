@@ -11,4 +11,11 @@
 	</parent>
 
 	<artifactId>imaging</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.github.sarxos</groupId>
+			<artifactId>webcam-capture</artifactId>
+		</dependency>
+	</dependencies>
 </project>

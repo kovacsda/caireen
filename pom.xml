@@ -16,7 +16,24 @@
 
 	<properties>
 		<java.version>1.7</java.version>
+		<org.springframework.version>4.0.3.RELEASE</org.springframework.version>
+		<com.github.sarxos.version>0.3.10-SNAPSHOT</com.github.sarxos.version>
 	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${org.springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.sarxos</groupId>
+				<artifactId>webcam-capture</artifactId>
+				<version>${com.github.sarxos.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<plugins>
