@@ -1,12 +1,10 @@
 package kr.digitron.caireen.imaging.workflow;
 
+import kr.digitron.caireen.common.service.DefaultObservableService;
 import kr.digitron.caireen.imaging.interceptor.ImageInterceptor;
 import kr.digitron.caireen.imaging.processor.image.ImageProcessor;
 
-// TODO Extend lisenable service
-// TODO Rename Observable
-// TODO Use generic listener
-public class DefaultWorkflow {
+public abstract class DefaultWorkflow<E> extends DefaultObservableService<E> {
 
     private final ImageInterceptor imageInterceptor;
     private final ImageProcessor[] imageProcessors;

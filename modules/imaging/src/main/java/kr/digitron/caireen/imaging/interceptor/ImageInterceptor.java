@@ -1,10 +1,12 @@
 package kr.digitron.caireen.imaging.interceptor;
 
-import kr.digitron.caireen.common.service.ListenableService;
+import java.awt.image.BufferedImage;
+
+import kr.digitron.caireen.common.service.ObservableService;
 
 /**
  * Interceptor to capture images.
  */
-public interface ImageInterceptor extends ListenableService<CaptureImageListener> {
+public interface ImageInterceptor extends ObservableService<BufferedImage> {
 
 }

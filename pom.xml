@@ -23,6 +23,16 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
+				<groupId>kr.digitron.caireen</groupId>
+				<artifactId>common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>kr.digitron.caireen</groupId>
+				<artifactId>imaging</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-context</artifactId>
 				<version>${org.springframework.version}</version>
@@ -31,11 +41,6 @@
 				<groupId>com.github.sarxos</groupId>
 				<artifactId>webcam-capture</artifactId>
 				<version>${com.github.sarxos.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>kr.digitron.caireen</groupId>
-				<artifactId>common</artifactId>
-				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

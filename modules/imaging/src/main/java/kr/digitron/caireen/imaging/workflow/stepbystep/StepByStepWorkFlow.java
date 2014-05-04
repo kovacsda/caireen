@@ -4,30 +4,27 @@ import java.awt.image.BufferedImage;
 
 import javax.annotation.PostConstruct;
 
-import kr.digitron.caireen.common.service.DefaultListenableService;
-import kr.digitron.caireen.imaging.interceptor.CaptureImageListener;
+import kr.digitron.caireen.common.service.ServiceObserver;
 import kr.digitron.caireen.imaging.interceptor.ImageInterceptor;
 import kr.digitron.caireen.imaging.processor.image.ImageProcessor;
+import kr.digitron.caireen.imaging.workflow.DefaultWorkflow;
 
-public class StepByStepWorkFlow extends DefaultListenableService<StepByStepImageProcessListener, StepByStepImageProcessEvent> {
-
-    private final ImageInterceptor imageInterceptor;
-    private final ImageProcessor[] imageProcessors;
+public class StepByStepWorkFlow extends DefaultWorkflow<StepByStepImageProcessEvent> {
 
     public StepByStepWorkFlow(final ImageInterceptor imageInterceptor, final ImageProcessor... imageProcessors) {
-	this.imageInterceptor = imageInterceptor;
-	this.imageProcessors = imageProcessors;
+	super(imageInterceptor, imageProcessors);
     }
 
     @PostConstruct
     public void init() {
-	imageInterceptor.addListener(new CaptureImageListener() {
+	getImageInterceptor().registerObserver(new ServiceObserver<BufferedImage>() {
+
 	    private int index = 0;
 
 	    @Override
-	    public void captureImage(final BufferedImage image) {
+	    public void notify(final BufferedImage image) {
 		BufferedImage work = image;
-		for (ImageProcessor processor : imageProcessors) {
+		for (ImageProcessor processor : getImageProcessors()) {
 		    work = processor.process(work);
 		    if (work == null) {
 			break;
@@ -38,10 +35,5 @@ public class StepByStepWorkFlow extends DefaultListenableService<StepByStepImage
 		index++;
 	    }
 	});
-    }
-
-    @Override
-    protected void callListener(final StepByStepImageProcessListener listener, final StepByStepImageProcessEvent event) {
-	listener.processFinished(event);
     }
 }
