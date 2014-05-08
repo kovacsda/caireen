@@ -24,15 +24,17 @@ public class StepByStepWorkFlow extends DefaultWorkflow<StepByStepImageProcessEv
 	    @Override
 	    public void notify(final BufferedImage image) {
 		BufferedImage work = image;
+		int index = (int) (System.currentTimeMillis() / 10) % 100;
+		fireEvent(new StepByStepImageProcessEvent(index, "Original", work));
 		for (ImageProcessor processor : getImageProcessors()) {
 		    work = processor.process(work);
 		    if (work == null) {
 			break;
 		    } else {
-			fireEvent(new StepByStepImageProcessEvent(index, processor.getClass().getName(), work));
+			fireEvent(new StepByStepImageProcessEvent(index, processor.getClass().getSimpleName(), work));
 		    }
 		}
-		index++;
+		this.index++;
 	    }
 	});
     }
