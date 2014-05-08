@@ -1,13 +1,12 @@
 package kr.digitron.caireen.ui.pc.controller;
 
 import javax.annotation.PostConstruct;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 import kr.digitron.caireen.common.service.ServiceObserver;
 import kr.digitron.caireen.imaging.workflow.stepbystep.StepByStepImageProcessEvent;
 import kr.digitron.caireen.imaging.workflow.stepbystep.StepByStepWorkFlow;
 import kr.digitron.caireen.ui.pc.component.ImageGridFrame;
+import kr.digitron.caireen.ui.pc.component.ImageLabel;
 
 public class ImageGridController {
 
@@ -24,7 +23,7 @@ public class ImageGridController {
 	workFlow.registerObserver(new ServiceObserver<StepByStepImageProcessEvent>() {
 	    @Override
 	    public void notify(final StepByStepImageProcessEvent event) {
-		frame.addData(String.valueOf(event.getImageId()), event.getProcessorName(), new JLabel(new ImageIcon(event.getImage())));
+		frame.addData(String.valueOf(event.getImageId()), event.getProcessorName(), new ImageLabel(event.getImage()));
 	    }
 	});
 	frame.pack();

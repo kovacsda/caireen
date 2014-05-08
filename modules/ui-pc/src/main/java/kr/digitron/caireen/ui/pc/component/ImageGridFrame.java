@@ -57,15 +57,15 @@ public class ImageGridFrame extends JFrame {
 	if (EventQueue.isDispatchThread()) {
 	    content.invalidate();
 	    content.removeAll();
-	    content.add(new JLabel("¤"));
+	    content.add(new JLabel(""));
 	    int columnCount = 0;
 	    for (String column : columns) {
 		if (columnCount++ < 10) {
-		    content.add(new JLabel("C|" + column));
+		    content.add(new JLabel(column));
 		}
 	    }
 	    for (String row : rows) {
-		content.add(new JLabel("R|" + row));
+		content.add(new JLabel(row));
 		columnCount = 0;
 		for (String column : columns) {
 		    GridKey key = new GridKey(column, row);

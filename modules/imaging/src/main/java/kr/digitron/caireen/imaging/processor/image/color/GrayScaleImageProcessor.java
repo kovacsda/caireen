@@ -6,7 +6,7 @@ import java.awt.image.ColorConvertOp;
 
 import kr.digitron.caireen.imaging.processor.image.ImageProcessor;
 
-public class GrayScaleImageProcessor implements ImageProcessor {
+public class GrayscaleImageProcessor implements ImageProcessor {
 
     @Override
     public BufferedImage process(final BufferedImage image) {
