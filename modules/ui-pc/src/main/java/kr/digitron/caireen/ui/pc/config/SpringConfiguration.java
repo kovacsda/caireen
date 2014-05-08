@@ -4,6 +4,8 @@ import kr.digitron.caireen.imaging.interceptor.ImageInterceptor;
 import kr.digitron.caireen.imaging.interceptor.WebcamImageInterceptor;
 import kr.digitron.caireen.imaging.processor.image.ImageProcessor;
 import kr.digitron.caireen.imaging.processor.image.color.GrayScaleImageProcessor;
+import kr.digitron.caireen.imaging.processor.image.scan.angle.GrayAngleScanImageProcessor;
+import kr.digitron.caireen.imaging.processor.image.scan.edge.EdgeScanImageProcessor;
 import kr.digitron.caireen.imaging.processor.image.subtract.SubtractImageProcessor;
 import kr.digitron.caireen.imaging.workflow.stepbystep.StepByStepWorkFlow;
 import kr.digitron.caireen.ui.pc.component.ImageGridFrame;
@@ -28,8 +30,19 @@ public class SpringConfiguration {
     }
 
     @Bean
-    public StepByStepWorkFlow stepByStepWorkFlow(final ImageInterceptor imageInterceptor, final ImageProcessor... imageProcessors) {
-	return new StepByStepWorkFlow(imageInterceptor, imageProcessors);
+    public StepByStepWorkFlow stepByStepWorkFlow(final ImageInterceptor imageInterceptor, final ImageProcessor grayScaleImageProcessor,
+	    final ImageProcessor angleScanImageProcessor, final ImageProcessor subtractImageProcessor) {
+	return new StepByStepWorkFlow(imageInterceptor, grayScaleImageProcessor, angleScanImageProcessor, subtractImageProcessor);
+    }
+
+    @Bean
+    public ImageProcessor edgeScanImageProcessor() {
+	return new EdgeScanImageProcessor();
+    }
+
+    @Bean
+    public ImageProcessor angleScanImageProcessor() {
+	return new GrayAngleScanImageProcessor();
     }
 
     @Bean

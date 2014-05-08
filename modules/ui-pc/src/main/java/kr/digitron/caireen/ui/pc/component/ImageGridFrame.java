@@ -22,12 +22,12 @@ public class ImageGridFrame extends JFrame {
     public List<String> rows = new ArrayList<>();
     public Map<GridKey, Component> data = new HashMap<>();
 
-    public GridLayout layout = new GridLayout(1, 1);
+    public GridLayout layout = new GridLayout(1, 1, 5, 5);
     public JPanel content = new JPanel(layout);
 
     public ImageGridFrame() {
 	getContentPane().setLayout(new BorderLayout());
-	getContentPane().add(new JScrollPane(content, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS));
+	getContentPane().add(new JScrollPane(content, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS));
     }
 
     public void addColumn(final String column) {
