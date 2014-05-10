@@ -1,10 +1,10 @@
-package kr.digitron.caireen.imaging.processor.image.subtract;
+package kr.digitron.caireen.imaging.processor.subtract;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
 
-import kr.digitron.caireen.imaging.processor.image.ImageProcessor;
+import kr.digitron.caireen.imaging.processor.ImageProcessor;
 import kr.digitron.caireen.imaging.util.PointUtil;
 
 public class SubtractImageProcessor implements ImageProcessor {

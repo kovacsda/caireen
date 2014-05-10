@@ -1,14 +1,14 @@
 package kr.digitron.caireen.imaging.workflow.stepbystep;
 
-import java.awt.image.BufferedImage;
+import kr.digitron.caireen.imaging.data.ImageData;
 
 public class StepByStepImageProcessEvent {
 
     private final long imageId;
     private final String processorName;
-    private final BufferedImage image;
+    private final ImageData<?> image;
 
-    StepByStepImageProcessEvent(final long imageId, final String processor, final BufferedImage image) {
+    StepByStepImageProcessEvent(final long imageId, final String processor, final ImageData<?> image) {
 	this.imageId = imageId;
 	this.processorName = processor;
 	this.image = image;
@@ -22,7 +22,7 @@ public class StepByStepImageProcessEvent {
 	return processorName;
     }
 
-    public BufferedImage getImage() {
+    public ImageData<?> getImage() {
 	return image;
     }
 }

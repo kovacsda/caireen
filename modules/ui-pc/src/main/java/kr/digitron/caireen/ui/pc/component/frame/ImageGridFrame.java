@@ -1,4 +1,4 @@
-package kr.digitron.caireen.ui.pc.component;
+package kr.digitron.caireen.ui.pc.component.frame;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -9,12 +9,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class ImageGridFrame extends JFrame {
+import kr.digitron.caireen.imaging.data.ImageData;
+import kr.digitron.caireen.ui.pc.component.label.ImageLabel;
+import kr.digitron.caireen.ui.pc.component.util.ComponentUtil;
+import kr.digitron.caireen.ui.pc.component.util.ComponentUtil.RebuildCallBack;
+
+public class ImageGridFrame extends ImageFrame {
 
     private static final long serialVersionUID = 1L;
 
@@ -46,45 +50,20 @@ public class ImageGridFrame extends JFrame {
 	}
     }
 
-    public void addData(final String column, final String row, final Component component) {
-	addColumn(column);
-	addRow(row);
-	data.put(new GridKey(column, row), component);
+    @Override
+    public void addData(final long id, final String processor, final ImageData<?> imageData) {
+	String stringID = String.valueOf(id);
+	addColumn(stringID);
+	addRow(processor);
+	data.put(new GridKey(stringID, processor), new ImageLabel(imageData.generateImage()));
 	rebuildGui();
     }
 
-    private void rebuildGui() {
+    protected void rebuildGui() {
 	if (EventQueue.isDispatchThread()) {
-	    content.invalidate();
-	    content.removeAll();
-	    content.add(new JLabel(""));
-	    int columnCount = 0;
-	    for (String column : columns) {
-		if (columnCount++ < 10) {
-		    content.add(new JLabel(column));
-		}
-	    }
-	    for (String row : rows) {
-		content.add(new JLabel(row));
-		columnCount = 0;
-		for (String column : columns) {
-		    GridKey key = new GridKey(column, row);
-		    if (data.containsKey(key)) {
-			if (columnCount < 10) {
-			    content.add(data.get(key));
-			} else {
-			    data.remove(key);
-			    columns.remove(column);
-			}
-		    } else {
-			if (columnCount < 10) {
-			    content.add(new JLabel("×"));
-			}
-		    }
-		    columnCount++;
-		}
-	    }
-	    content.validate();
+	    invalidate();
+	    buildGui();
+	    validate();
 	} else {
 	    EventQueue.invokeLater(new Runnable() {
 		@Override
@@ -95,6 +74,42 @@ public class ImageGridFrame extends JFrame {
 	}
     }
 
+    protected void buildGui() {
+	ComponentUtil.revalidate(content, new RebuildCallBack() {
+	    @Override
+	    public void call() {
+		content.removeAll();
+		content.add(new JLabel(""));
+		int columnCount = 0;
+		for (String column : columns) {
+		    if (columnCount++ < 10) {
+			content.add(new JLabel(column));
+		    }
+		}
+		for (String row : rows) {
+		    content.add(new JLabel(row));
+		    columnCount = 0;
+		    for (String column : columns) {
+			GridKey key = new GridKey(column, row);
+			if (data.containsKey(key)) {
+			    if (columnCount < 10) {
+				content.add(data.get(key));
+			    } else {
+				data.remove(key);
+				columns.remove(column);
+			    }
+			} else {
+			    if (columnCount < 10) {
+				content.add(new JLabel("×"));
+			    }
+			}
+			columnCount++;
+		    }
+		}
+	    }
+	});
+    }
+
     private final static class GridKey {
 
 	private final String column;
@@ -103,14 +118,6 @@ public class ImageGridFrame extends JFrame {
 	public GridKey(final String column, final String row) {
 	    this.column = column;
 	    this.row = row;
-	}
-
-	protected String getColumn() {
-	    return column;
-	}
-
-	protected String getRow() {
-	    return row;
 	}
 
 	@Override

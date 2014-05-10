@@ -1,11 +1,12 @@
-package kr.digitron.caireen.imaging.processor.image;
+package kr.digitron.caireen.imaging.processor;
 
-import java.awt.image.BufferedImage;
+import kr.digitron.caireen.imaging.data.ImageData;
+import kr.digitron.caireen.imaging.data.pixel.PixelData;
 
 /**
  * Process image and create a result.
  */
-public interface ImageProcessor {
+public interface ImageProcessor<I extends PixelData, O extends PixelData> {
 
     /**
      * Process image and create a result. The result can be null, if the
@@ -15,5 +16,5 @@ public interface ImageProcessor {
      *            input image
      * @return output image
      */
-    BufferedImage process(BufferedImage image);
+    ImageData<O> process(ImageData<I> image);
 }
