@@ -1,6 +1,5 @@
 package kr.digitron.caireen.imaging.data.pixel;
 
-
 public class GrayscalePixelData implements PixelData {
 
     private byte grayscale;
@@ -13,8 +12,8 @@ public class GrayscalePixelData implements PixelData {
 	this.grayscale = (byte) grayscale;
     }
 
-    public byte getGrayscale() {
-	return grayscale;
+    public int getGrayscale() {
+	return grayscale & 0xFF;
     }
 
     @Override

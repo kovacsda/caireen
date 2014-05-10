@@ -21,7 +21,7 @@ public class RGBImageData extends ImageData<RGBPixelData> {
 
     @Override
     protected int getImageType() {
-	return BufferedImage.TYPE_INT_ARGB;
+	return BufferedImage.TYPE_INT_RGB;
     }
 
 }

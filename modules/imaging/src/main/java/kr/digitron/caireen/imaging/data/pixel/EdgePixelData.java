@@ -16,8 +16,8 @@ public class EdgePixelData implements PixelData {
 	this.grad = (byte) grad;
     }
 
-    public byte getGrad() {
-	return grad;
+    public int getGrad() {
+	return grad & 0xFF;
     }
 
     public void setAngleClass(final AngleClass angleClass) {
@@ -32,20 +32,20 @@ public class EdgePixelData implements PixelData {
     public int[] getDisplayColor() {
 	int[] color;
 	switch (angleClass) {
+	case ANGLE_CLASS_90:
+	    color = new int[] { grad, grad, 0 };
+	    break;
+	case ANGLE_CLASS_135:
+	    color = new int[] { 0, grad, 0 };
+	    break;
+	case ANGLE_CLASS_45:
+	    color = new int[] { 0, 0, grad };
+	    break;
 	case ANGLE_CLASS_0:
-	    color = new int[] { grad, grad, 0, 0 };
-	    break;
-	case ANGLE_CLASS_1:
-	    color = new int[] { 0, grad, 0, 0 };
-	    break;
-	case ANGLE_CLASS_2:
-	    color = new int[] { 0, 0, grad, 0 };
-	    break;
-	case ANGLE_CLASS_3:
-	    color = new int[] { grad, 0, 0, 0 };
+	    color = new int[] { grad, 0, 0 };
 	    break;
 	default:
-	    color = new int[] { grad, grad, grad, 0 };
+	    color = new int[] { grad, grad, grad };
 	    break;
 	}
 	return color;

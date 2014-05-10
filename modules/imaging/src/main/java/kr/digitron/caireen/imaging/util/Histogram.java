@@ -39,13 +39,16 @@ public final class Histogram {
 	BufferedImage image = new BufferedImage(getSize() * 2, HISTOGRAM_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 	Graphics graphics = image.getGraphics();
 	graphics.setColor(Color.BLACK);
+	int max = this.max / 10;
 	graphics.drawString("Max : " + max, 20, 20);
 	graphics.drawLine(0, 0, 0, HISTOGRAM_HEIGHT);
 	graphics.drawLine(0, HISTOGRAM_HEIGHT - 1, getSize() * 2, HISTOGRAM_HEIGHT - 1);
 	graphics.setColor(Color.BLUE);
-	for (int i = 0; i < getSize(); i++) {
-	    int data = HISTOGRAM_HEIGHT - getData(i) * HISTOGRAM_HEIGHT / getMax();
-	    graphics.drawLine(i * 2, data, i * 2 + 1, data);
+	int previous = HISTOGRAM_HEIGHT - getData(0) * HISTOGRAM_HEIGHT / max;
+	for (int i = 1; i < getSize(); i++) {
+	    int actual = HISTOGRAM_HEIGHT - getData(i) * HISTOGRAM_HEIGHT / max;
+	    graphics.drawLine((i - 1) * 2, previous, i * 2 + 1, actual);
+	    previous = actual;
 	}
 	return image;
     }

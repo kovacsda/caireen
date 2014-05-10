@@ -10,11 +10,11 @@ import kr.digitron.caireen.imaging.util.PointUtil.AngleClass;
 
 public class EdgeScanImageProcessor implements ImageProcessor<GrayscalePixelData, EdgePixelData> {
 
-    private final static int GRAD_THRESHOLD = 80;
+    private final static int GRAD_THRESHOLD = 0;
 
     @Override
     public ImageData<EdgePixelData> process(final ImageData<GrayscalePixelData> image) {
-	EdgeImageData result = new EdgeImageData(image.getWidth(), image.getHeight());
+	EdgeImageData result = new EdgeImageData(image.getWidth() - 2, image.getHeight() - 2);
 	for (int x = 1; x < image.getWidth() - 1; x++) {
 	    for (int y = 1; y < image.getHeight() - 1; y++) {
 		int difx = PointUtil.getGradX(image, x, y);
@@ -22,7 +22,7 @@ public class EdgeScanImageProcessor implements ImageProcessor<GrayscalePixelData
 		int grad = PointUtil.getGrad(difx, dify);
 		grad = PointUtil.stretchColor(grad, GRAD_THRESHOLD);
 		AngleClass angleClass = PointUtil.getAngleClass(difx, dify);
-		result.set(x, y, new EdgePixelData(grad, angleClass));
+		result.set(x - 1, y - 1, new EdgePixelData(grad, angleClass));
 	    }
 	}
 	return result;

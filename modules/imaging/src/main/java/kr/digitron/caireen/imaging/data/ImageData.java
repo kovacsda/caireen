@@ -15,6 +15,9 @@ public abstract class ImageData<D extends PixelData> {
 
     public ImageData(final int width, final int height) {
 	data = new ArrayList<>(width * height);
+	for (int i = 0; i < width * height; i++) {
+	    data.add(null);
+	}
 	this.width = width;
 	this.height = height;
     }

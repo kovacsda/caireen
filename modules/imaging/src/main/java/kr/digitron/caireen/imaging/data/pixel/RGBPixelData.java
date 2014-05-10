@@ -52,6 +52,6 @@ public class RGBPixelData implements PixelData {
 
     @Override
     public int[] getDisplayColor() {
-	return new int[] { red, green, blue, alfa };
+	return new int[] { blue, green, red };
     }
 }

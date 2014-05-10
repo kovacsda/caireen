@@ -1,8 +1,10 @@
 package kr.digitron.caireen.ui.pc.component.label;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -29,6 +31,7 @@ public class ImageTile extends JPanel {
     private void build() {
 	label = new JLabel();
 	imageLabel = new ImageLabel();
+	imageLabel.setBorder(BorderFactory.createLineBorder(Color.ORANGE, 1));
 
 	setLayout(new BorderLayout());
 	add(label, BorderLayout.NORTH);

@@ -19,7 +19,7 @@ public class UISpringConfiguration {
 
     @Bean
     public ImageTileFrame imageTileFrame() {
-	return new ImageTileFrame(2);
+	return new ImageTileFrame(3);
     }
 
     @Bean

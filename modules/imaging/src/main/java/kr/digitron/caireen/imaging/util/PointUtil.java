@@ -39,10 +39,10 @@ public class PointUtil {
 
     public static AngleClass getAngleClass(int difx, final int dify) {
 	if (dify == 0) {
-	    return AngleClass.ANGLE_CLASS_0;
+	    return AngleClass.ANGLE_CLASS_90;
 	}
 	if (difx == 0) {
-	    return AngleClass.ANGLE_CLASS_2;
+	    return AngleClass.ANGLE_CLASS_45;
 	}
 
 	float h = (float) dify / (float) difx; // normalize difx to 1
@@ -53,19 +53,19 @@ public class PointUtil {
 	if (difx < 0) { // left side
 	    h = -h;
 	    if (h < TAN022_5) {
-		return AngleClass.ANGLE_CLASS_0;
+		return AngleClass.ANGLE_CLASS_90;
 	    }
 	    if (h < TAN067_5) {
-		return AngleClass.ANGLE_CLASS_3;
+		return AngleClass.ANGLE_CLASS_0;
 	    }
-	    return AngleClass.ANGLE_CLASS_2;
+	    return AngleClass.ANGLE_CLASS_45;
 	} else { // right side
 	    if (h > TAN067_5) {
-		return AngleClass.ANGLE_CLASS_2;
+		return AngleClass.ANGLE_CLASS_45;
 	    } else if (h > TAN022_5) {
-		return AngleClass.ANGLE_CLASS_1;
+		return AngleClass.ANGLE_CLASS_135;
 	    }
-	    return AngleClass.ANGLE_CLASS_0;
+	    return AngleClass.ANGLE_CLASS_90;
 	}
     }
 
@@ -76,6 +76,6 @@ public class PointUtil {
 	// [13:55:21] Tibor Csécsei (Tájbor): reverse?
 	// [13:56:45] Tibor Csécsei (Tájbor): diagonal, other diagonal / reverse
 	// diagonal
-	ANGLE_CLASS_0, ANGLE_CLASS_1, ANGLE_CLASS_2, ANGLE_CLASS_3;
+	ANGLE_CLASS_90, ANGLE_CLASS_135, ANGLE_CLASS_45, ANGLE_CLASS_0;
     }
 }

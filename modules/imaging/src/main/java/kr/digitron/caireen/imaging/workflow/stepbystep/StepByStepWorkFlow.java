@@ -12,19 +12,26 @@ import kr.digitron.caireen.imaging.data.pixel.GrayscalePixelData;
 import kr.digitron.caireen.imaging.data.pixel.RGBPixelData;
 import kr.digitron.caireen.imaging.interceptor.ImageInterceptor;
 import kr.digitron.caireen.imaging.processor.color.GrayscaleImageProcessor;
+import kr.digitron.caireen.imaging.processor.scan.DoubleThresholdImageProcessor;
 import kr.digitron.caireen.imaging.processor.scan.EdgeScanImageProcessor;
+import kr.digitron.caireen.imaging.processor.scan.ThinningImageProcessor;
 import kr.digitron.caireen.imaging.workflow.DefaultWorkflow;
 
 public class StepByStepWorkFlow extends DefaultWorkflow<StepByStepImageProcessEvent> {
 
     private final GrayscaleImageProcessor grayscaleImageProcessor;
     private final EdgeScanImageProcessor edgeScanImageProcessor;
+    private final ThinningImageProcessor thinningImageProcessor;
+    private final DoubleThresholdImageProcessor doubleThresholdImageProcessor;
 
     public StepByStepWorkFlow(final ImageInterceptor imageInterceptor, final GrayscaleImageProcessor grayscaleImageProcessor,
-	    final EdgeScanImageProcessor edgeScanImageProcessor) {
+	    final EdgeScanImageProcessor edgeScanImageProcessor, final ThinningImageProcessor thinningImageProcessor,
+	    final DoubleThresholdImageProcessor doubleThresholdImageProcessor) {
 	super(imageInterceptor);
 	this.grayscaleImageProcessor = grayscaleImageProcessor;
 	this.edgeScanImageProcessor = edgeScanImageProcessor;
+	this.thinningImageProcessor = thinningImageProcessor;
+	this.doubleThresholdImageProcessor = doubleThresholdImageProcessor;
     }
 
     @PostConstruct
@@ -40,6 +47,10 @@ public class StepByStepWorkFlow extends DefaultWorkflow<StepByStepImageProcessEv
 		fireEvent(new StepByStepImageProcessEvent(index, "Grayscale", grayscaleImage));
 		ImageData<EdgePixelData> edgeImage = edgeScanImageProcessor.process(grayscaleImage);
 		fireEvent(new StepByStepImageProcessEvent(index, "EdgeScan", edgeImage));
+		ImageData<EdgePixelData> thinnedImage = thinningImageProcessor.process(edgeImage);
+		fireEvent(new StepByStepImageProcessEvent(index, "Thinning", thinnedImage));
+		ImageData<EdgePixelData> thresholdedImage = doubleThresholdImageProcessor.process(thinnedImage);
+		fireEvent(new StepByStepImageProcessEvent(index, "DoubleThreshold", thresholdedImage));
 	    }
 	});
     }

@@ -30,6 +30,7 @@ public class ImageInterceptionSpringConfiguration {
     public Webcam webcam() {
 	Webcam webcam = Webcam.getDefault();
 	JComboBox<Dimension> comboBox = new JComboBox<>(webcam.getDevice().getResolutions());
+	comboBox.setSelectedIndex(1);
 	comboBox.setRenderer(new ListCellRenderer<Dimension>() {
 	    @Override
 	    public Component getListCellRendererComponent(final JList<? extends Dimension> list, final Dimension value, final int index,

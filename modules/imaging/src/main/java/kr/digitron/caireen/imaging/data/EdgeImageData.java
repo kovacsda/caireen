@@ -12,7 +12,7 @@ public class EdgeImageData extends ImageData<EdgePixelData> {
 
     @Override
     protected int getImageType() {
-	return BufferedImage.TYPE_INT_ARGB;
+	return BufferedImage.TYPE_INT_RGB;
     }
 
 }
