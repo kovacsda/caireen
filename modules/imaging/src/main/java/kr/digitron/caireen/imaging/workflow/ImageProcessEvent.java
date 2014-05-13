@@ -1,21 +1,21 @@
-package kr.digitron.caireen.imaging.workflow.stepbystep;
+package kr.digitron.caireen.imaging.workflow;
 
 import kr.digitron.caireen.imaging.data.ImageData;
 
-public class StepByStepImageProcessEvent {
+public class ImageProcessEvent {
 
-    private final long imageId;
+    private final long time;
     private final String processorName;
     private final ImageData<?> image;
 
-    StepByStepImageProcessEvent(final long imageId, final String processor, final ImageData<?> image) {
-	this.imageId = imageId;
+    public ImageProcessEvent(final long time, final String processor, final ImageData<?> image) {
+	this.time = time;
 	this.processorName = processor;
 	this.image = image;
     }
 
-    public long getImageId() {
-	return imageId;
+    public long getTime() {
+	return time;
     }
 
     public String getProcessorName() {

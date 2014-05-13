@@ -1,31 +1,23 @@
 package kr.digitron.caireen.imaging.processor.subtract;
 
-import java.awt.image.BufferedImage;
-import java.awt.image.Raster;
-import java.awt.image.WritableRaster;
-
+import kr.digitron.caireen.imaging.data.GrayscaleImageData;
+import kr.digitron.caireen.imaging.data.ImageData;
+import kr.digitron.caireen.imaging.data.pixel.GrayscalePixelData;
+import kr.digitron.caireen.imaging.data.pixel.PixelData;
 import kr.digitron.caireen.imaging.processor.ImageProcessor;
-import kr.digitron.caireen.imaging.util.PointUtil;
 
-public class SubtractImageProcessor implements ImageProcessor {
+public abstract class SubtractImageProcessor<T extends PixelData> extends ImageProcessor<ImageData<T>, ImageData<GrayscalePixelData>> {
 
-    private static final int MIN_DIFF = 20;
-    private static final int MAX_DIFF = 80;
-
-    private BufferedImage previous;
+    private ImageData<T> previous;
 
     @Override
-    public BufferedImage process(final BufferedImage image) {
-	BufferedImage result = null;
+    public ImageData<GrayscalePixelData> process(final ImageData<T> image) {
+	ImageData<GrayscalePixelData> result = null;
 	if (previous != null) {
-	    Raster previousRaster = previous.getData();
-	    Raster actualRaster = image.getData();
-	    result = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
-	    WritableRaster resultRaster = result.getRaster();
+	    result = new GrayscaleImageData(image.getWidth(), image.getHeight());
 	    for (int x = 0; x < image.getWidth(); x++) {
 		for (int y = 0; y < image.getHeight(); y++) {
-		    int subtract = subtract(previousRaster.getSample(x, y, 0), actualRaster.getSample(x, y, 0));
-		    resultRaster.setSample(x, y, 0, subtract);
+		    result.set(x, y, subtract(image.get(x, y), previous.get(x, y)));
 		}
 	    }
 	}
@@ -33,8 +25,5 @@ public class SubtractImageProcessor implements ImageProcessor {
 	return result;
     }
 
-    private int subtract(final int previousGrayscale, final int actualGrayscale) {
-	int different = Math.abs(previousGrayscale - actualGrayscale);
-	return PointUtil.stretchColor(different, MIN_DIFF, MAX_DIFF);
-    }
+    protected abstract GrayscalePixelData subtract(final T actual, final T previous);
 }

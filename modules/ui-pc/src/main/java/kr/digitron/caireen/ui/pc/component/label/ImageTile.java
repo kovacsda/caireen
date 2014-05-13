@@ -16,16 +16,15 @@ public class ImageTile extends JPanel {
 
     private JLabel label;
     private ImageLabel imageLabel;
-    private long time;
 
     public ImageTile(final String processor) {
 	this.processor = processor;
 	build();
     }
 
-    public ImageTile(final String processor, final long id, final BufferedImage image) {
+    public ImageTile(final String processor, final long time, final BufferedImage image) {
 	this(processor);
-	updateImage(id, image);
+	updateImage(time, image);
     }
 
     private void build() {
@@ -38,9 +37,8 @@ public class ImageTile extends JPanel {
 	add(imageLabel, BorderLayout.CENTER);
     }
 
-    public void updateImage(final long id, final BufferedImage image) {
-	label.setText(processor + " (" + (id - time) + " ms)");
+    public void updateImage(final long time, final BufferedImage image) {
+	label.setText(processor + " (" + time + " ms)");
 	imageLabel.setImage(image);
-	time = id;
     }
 }

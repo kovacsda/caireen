@@ -6,7 +6,7 @@ import kr.digitron.caireen.imaging.data.pixel.GrayscalePixelData;
 import kr.digitron.caireen.imaging.data.pixel.RGBPixelData;
 import kr.digitron.caireen.imaging.processor.ImageProcessor;
 
-public class GrayscaleImageProcessor implements ImageProcessor<RGBPixelData, GrayscalePixelData> {
+public class GrayscaleImageProcessor extends ImageProcessor<ImageData<RGBPixelData>, ImageData<GrayscalePixelData>> {
 
     @Override
     public ImageData<GrayscalePixelData> process(final ImageData<RGBPixelData> image) {

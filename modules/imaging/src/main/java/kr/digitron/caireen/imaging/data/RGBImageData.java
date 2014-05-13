@@ -6,6 +6,8 @@ import kr.digitron.caireen.imaging.data.pixel.RGBPixelData;
 
 public class RGBImageData extends ImageData<RGBPixelData> {
 
+    private final static RGBPixelData DEFAULT_PIXEL = new RGBPixelData(0);
+
     public RGBImageData(final BufferedImage bufferedImage) {
 	super(bufferedImage.getWidth(), bufferedImage.getHeight());
 	for (int x = 0; x < bufferedImage.getWidth(); x++) {
@@ -24,4 +26,13 @@ public class RGBImageData extends ImageData<RGBPixelData> {
 	return BufferedImage.TYPE_INT_RGB;
     }
 
+    @Override
+    public ImageData<RGBPixelData> cloneEmpty() {
+	return new RGBImageData(getWidth(), getHeight());
+    }
+
+    @Override
+    public RGBPixelData getDefaultPixel() {
+	return DEFAULT_PIXEL;
+    }
 }

@@ -31,6 +31,6 @@ public class HistogramBuilder {
 		}
 	    }
 	}, image);
-	return new Histogram(max, data);
+	return new Histogram(max, image.getWidth() * image.getHeight(), data);
     }
 }

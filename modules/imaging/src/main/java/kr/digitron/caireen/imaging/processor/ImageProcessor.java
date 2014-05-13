@@ -6,7 +6,7 @@ import kr.digitron.caireen.imaging.data.pixel.PixelData;
 /**
  * Process image and create a result.
  */
-public interface ImageProcessor<I extends PixelData, O extends PixelData> {
+public abstract class ImageProcessor<I extends ImageData<? extends PixelData>, O extends ImageData<? extends PixelData>> {
 
     /**
      * Process image and create a result. The result can be null, if the
@@ -16,5 +16,9 @@ public interface ImageProcessor<I extends PixelData, O extends PixelData> {
      *            input image
      * @return output image
      */
-    ImageData<O> process(ImageData<I> image);
+    public abstract O process(I image);
+
+    public String getName() {
+	return getClass().getSimpleName();
+    }
 }

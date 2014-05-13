@@ -10,6 +10,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListCellRenderer;
 
+import kr.digitron.caireen.imaging.interceptor.FileImageInterceptor;
 import kr.digitron.caireen.imaging.interceptor.ImageInterceptor;
 import kr.digitron.caireen.imaging.interceptor.WebcamImageInterceptor;
 
@@ -22,11 +23,14 @@ import com.github.sarxos.webcam.Webcam;
 public class ImageInterceptionSpringConfiguration {
 
     @Bean
+    public ImageInterceptor fileImageInterceptor() {
+	return new FileImageInterceptor("c:/_dev/digitron/caireen/working_copy/test_data/optimal-imgs");
+    }
+
     public ImageInterceptor webcamImageInterceptor(final Webcam webcam) {
 	return new WebcamImageInterceptor(webcam);
     }
 
-    @Bean
     public Webcam webcam() {
 	Webcam webcam = Webcam.getDefault();
 	JComboBox<Dimension> comboBox = new JComboBox<>(webcam.getDevice().getResolutions());

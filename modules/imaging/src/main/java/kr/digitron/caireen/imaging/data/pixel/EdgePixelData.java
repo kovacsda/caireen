@@ -32,16 +32,16 @@ public class EdgePixelData implements PixelData {
     public int[] getDisplayColor() {
 	int[] color;
 	switch (angleClass) {
-	case ANGLE_CLASS_90:
+	case DEGREE_90:
 	    color = new int[] { grad, grad, 0 };
 	    break;
-	case ANGLE_CLASS_135:
+	case DEGREE_135:
 	    color = new int[] { 0, grad, 0 };
 	    break;
-	case ANGLE_CLASS_45:
+	case DEGREE_45:
 	    color = new int[] { 0, 0, grad };
 	    break;
-	case ANGLE_CLASS_0:
+	case DEGREE_0:
 	    color = new int[] { grad, 0, 0 };
 	    break;
 	default:
@@ -49,5 +49,35 @@ public class EdgePixelData implements PixelData {
 	    break;
 	}
 	return color;
+    }
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + (angleClass == null ? 0 : angleClass.hashCode());
+	result = prime * result + grad;
+	return result;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+	if (this == obj) {
+	    return true;
+	}
+	if (obj == null) {
+	    return false;
+	}
+	if (getClass() != obj.getClass()) {
+	    return false;
+	}
+	EdgePixelData other = (EdgePixelData) obj;
+	if (angleClass != other.angleClass) {
+	    return false;
+	}
+	if (grad != other.grad) {
+	    return false;
+	}
+	return true;
     }
 }

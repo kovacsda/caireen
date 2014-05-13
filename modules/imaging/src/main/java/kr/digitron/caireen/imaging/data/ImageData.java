@@ -16,7 +16,7 @@ public abstract class ImageData<D extends PixelData> {
     public ImageData(final int width, final int height) {
 	data = new ArrayList<>(width * height);
 	for (int i = 0; i < width * height; i++) {
-	    data.add(null);
+	    data.add(getDefaultPixel());
 	}
 	this.width = width;
 	this.height = height;
@@ -43,9 +43,12 @@ public abstract class ImageData<D extends PixelData> {
 	WritableRaster raster = image.getRaster();
 	for (int x = 0; x < image.getWidth(); x++) {
 	    for (int y = 0; y < image.getHeight(); y++) {
-		int[] color = get(x, y).getDisplayColor();
-		for (int b = 0; b < color.length; b++) {
-		    raster.setSample(x, y, b, color[b]);
+		D pixelData = get(x, y);
+		if (pixelData != null) {
+		    int[] color = pixelData.getDisplayColor();
+		    for (int b = 0; b < color.length; b++) {
+			raster.setSample(x, y, b, color[b]);
+		    }
 		}
 	    }
 	}
@@ -54,4 +57,7 @@ public abstract class ImageData<D extends PixelData> {
 
     protected abstract int getImageType();
 
+    public abstract ImageData<D> cloneEmpty();
+
+    public abstract D getDefaultPixel();
 }

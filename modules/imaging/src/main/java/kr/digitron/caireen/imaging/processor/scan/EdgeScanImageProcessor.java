@@ -8,7 +8,7 @@ import kr.digitron.caireen.imaging.processor.ImageProcessor;
 import kr.digitron.caireen.imaging.util.PointUtil;
 import kr.digitron.caireen.imaging.util.PointUtil.AngleClass;
 
-public class EdgeScanImageProcessor implements ImageProcessor<GrayscalePixelData, EdgePixelData> {
+public class EdgeScanImageProcessor extends ImageProcessor<ImageData<GrayscalePixelData>, ImageData<EdgePixelData>> {
 
     private final static int GRAD_THRESHOLD = 0;
 
