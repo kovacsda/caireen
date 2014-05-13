@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>kr.digitron.caireen</groupId>
+		<groupId>kr.promu.caireen</groupId>
 		<artifactId>parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../..</relativePath>
@@ -18,7 +18,7 @@
 			<artifactId>webcam-capture</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>kr.digitron.caireen</groupId>
+			<groupId>kr.promu.caireen</groupId>
 			<artifactId>common</artifactId>
 		</dependency>
 	</dependencies>

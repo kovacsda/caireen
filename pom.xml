@@ -3,7 +3,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>kr.digitron.caireen</groupId>
+	<groupId>kr.promu.caireen</groupId>
 	<artifactId>parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
@@ -23,12 +23,12 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>kr.digitron.caireen</groupId>
+				<groupId>kr.promu.caireen</groupId>
 				<artifactId>common</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>kr.digitron.caireen</groupId>
+				<groupId>kr.promu.caireen</groupId>
 				<artifactId>imaging</artifactId>
 				<version>${project.version}</version>
 			</dependency>
