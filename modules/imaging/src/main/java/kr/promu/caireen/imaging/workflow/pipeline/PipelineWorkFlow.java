@@ -5,14 +5,15 @@ import java.awt.image.BufferedImage;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
+import kr.promu.caireen.common.interceptor.ImageInterceptor;
 import kr.promu.caireen.common.service.ServiceObserver;
+import kr.promu.caireen.common.workflow.DefaultWorkflow;
 import kr.promu.caireen.imaging.data.ImageData;
 import kr.promu.caireen.imaging.data.RGBImageData;
 import kr.promu.caireen.imaging.data.pixel.EdgePixelData;
 import kr.promu.caireen.imaging.data.pixel.GrayscalePixelData;
 import kr.promu.caireen.imaging.data.pixel.PixelData;
 import kr.promu.caireen.imaging.data.pixel.RGBPixelData;
-import kr.promu.caireen.imaging.interceptor.ImageInterceptor;
 import kr.promu.caireen.imaging.processor.ImageProcessor;
 import kr.promu.caireen.imaging.processor.color.BlackWhiteImageProcessor;
 import kr.promu.caireen.imaging.processor.color.GrayscaleImageProcessor;
@@ -23,7 +24,6 @@ import kr.promu.caireen.imaging.processor.filter.ThinningImageProcessor;
 import kr.promu.caireen.imaging.processor.scan.EdgeScanImageProcessor;
 import kr.promu.caireen.imaging.processor.subtract.EdgeSubtractImageProcessor;
 import kr.promu.caireen.imaging.processor.subtract.GrayscaleSubtractImageProcessor;
-import kr.promu.caireen.imaging.workflow.DefaultWorkflow;
 import kr.promu.caireen.imaging.workflow.ImageProcessEvent;
 
 public class PipelineWorkFlow extends DefaultWorkflow<ImageProcessEvent> {

@@ -14,9 +14,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
-import kr.promu.caireen.imaging.interceptor.FileImageInterceptor;
-import kr.promu.caireen.imaging.interceptor.ImageInterceptor;
-import kr.promu.caireen.imaging.interceptor.WebcamImageInterceptor;
+import kr.promu.caireen.common.interceptor.FileImageInterceptor;
+import kr.promu.caireen.common.interceptor.ImageInterceptor;
+import kr.promu.caireen.common.interceptor.WebcamImageInterceptor;
 import kr.promu.caireen.ui.pc.component.label.SelectableWebcamLabel;
 import kr.promu.caireen.ui.pc.component.label.SelectableWebcamLabel.WebcamButtonModel;
 

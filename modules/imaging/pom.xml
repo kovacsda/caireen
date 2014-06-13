@@ -14,12 +14,12 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.github.sarxos</groupId>
-			<artifactId>webcam-capture</artifactId>
+			<groupId>kr.promu.caireen</groupId>
+			<artifactId>common</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>kr.promu.caireen</groupId>
-			<artifactId>common</artifactId>
+			<artifactId>jni</artifactId>
 		</dependency>
 	</dependencies>
 </project>

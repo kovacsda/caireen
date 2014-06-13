@@ -10,8 +10,8 @@
 
 	<modules>
 		<module>modules/common</module>
-		<module>modules/jni</module>
 		<module>modules/imaging</module>
+		<module>modules/jni</module>
 		<module>modules/ui-pc</module>
 	</modules>
 
@@ -26,6 +26,11 @@
 			<dependency>
 				<groupId>kr.promu.caireen</groupId>
 				<artifactId>common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>kr.promu.caireen</groupId>
+				<artifactId>jni</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
