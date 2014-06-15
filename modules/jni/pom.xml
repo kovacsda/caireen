@@ -11,4 +11,20 @@
 	</parent>
 
 	<artifactId>jni</artifactId>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>native-maven-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<javahClassNames>
+						<javahClassName>kr.promu.caireen.jni.service.NativeImageProcessor</javahClassName>
+					</javahClassNames>
+					<javahOutputDirectory>src/native/gen</javahOutputDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
