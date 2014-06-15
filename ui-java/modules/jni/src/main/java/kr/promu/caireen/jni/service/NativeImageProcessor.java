@@ -3,7 +3,17 @@ package kr.promu.caireen.jni.service;
 public class NativeImageProcessor {
 
     static {
-	System.load("C:/_dev/digitron/caireen/working_copy/modules/jni/src/main/resources/ImageProcessingJNITest01.dll");
+	try {
+	    try {
+		System.load("C:/_dev/digitron/caireen/working_copy/ui-java/modules/jni/src/native/lib/ImageProcessingJNITest01.dll");
+	    } catch (Error e) {
+		e.printStackTrace();
+		System.load("ImageProcessingJNITest01.dll");
+	    }
+	} catch (Error e) {
+	    e.printStackTrace();
+	    System.load("C:/ImageProcessingJNITest01.dll");
+	}
     }
 
     /**
