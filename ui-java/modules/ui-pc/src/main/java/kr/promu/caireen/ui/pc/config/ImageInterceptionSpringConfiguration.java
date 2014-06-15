@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -28,16 +29,41 @@ import com.github.sarxos.webcam.Webcam;
 @Configuration
 public class ImageInterceptionSpringConfiguration {
 
-    public ImageInterceptor fileImageInterceptor() {
-	return new FileImageInterceptor("c:/_dev/digitron/caireen/working_copy/test_data/optimal-imgs");
+    @Bean
+    public ImageInterceptor imageInterceptor() {
+	JComboBox<String> comboBox = new JComboBox<>(new String[] { "Webcam", "File" });
+	comboBox.setSelectedIndex(0);
+	comboBox.setRenderer(new ListCellRenderer<String>() {
+	    @Override
+	    public Component getListCellRendererComponent(final JList<? extends String> list, final String value, final int index,
+		    final boolean isSelected, final boolean cellHasFocus) {
+		JLabel label = new JLabel();
+		label.setText(value);
+		label.setOpaque(true);
+		label.setForeground(cellHasFocus ? Color.DARK_GRAY : Color.BLACK);
+		label.setBackground(isSelected ? Color.LIGHT_GRAY : Color.WHITE);
+		return label;
+	    };
+	});
+	JOptionPane.showMessageDialog(null, comboBox, "Select Resolution", JOptionPane.QUESTION_MESSAGE);
+	return comboBox.getSelectedItem().equals("File") ? fileImageInterceptor() : webcamImageInterceptor(webcam());
     }
 
-    @Bean
+    public ImageInterceptor fileImageInterceptor() {
+	JFileChooser chooser = new JFileChooser();
+	chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+	chooser.setMultiSelectionEnabled(false);
+	if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+	    return new FileImageInterceptor(chooser.getSelectedFile().getAbsolutePath());
+	} else {
+	    throw new IllegalStateException("User Cancel");
+	}
+    }
+
     public ImageInterceptor webcamImageInterceptor(final Webcam webcam) {
 	return new WebcamImageInterceptor(webcam);
     }
 
-    @Bean
     public Webcam webcam() {
 	Webcam webcam = selectWebcam();
 	webcam.getDevice().setResolution(selectResolution(webcam.getDevice().getResolutions()));

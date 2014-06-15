@@ -5,6 +5,7 @@ import java.awt.image.DataBufferByte;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.swing.JOptionPane;
 
 import kr.promu.caireen.common.interceptor.ImageInterceptor;
 import kr.promu.caireen.common.service.ServiceObserver;
@@ -34,8 +35,21 @@ public class CounterWorkFlow extends DefaultWorkflow<CounterProcessEvent> {
     }
 
     private int getDropCount(final BufferedImage image) {
-	return nativeImageProcessor.processImage(((DataBufferByte) image.getRaster().getDataBuffer()).getData(), image.getWidth(),
-		image.getHeight(), 0);
+	JOptionPane.showMessageDialog(null, "Tibi vazzeg!!!");
+	byte[] imageData = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
+	DataBufferByte requestData = new DataBufferByte(imageData.length + 4 * 5);
+	requestData.setElem(0, 1);
+	requestData.setElem(4, image.getWidth());
+	requestData.setElem(8, image.getHeight());
+	requestData.setElem(12, image.getWidth());
+	requestData.setElem(16, 0); // format grayscale8
+	for (int i = 0; i < imageData.length; i++) {
+	    requestData.getData()[i + 4 * 5] = imageData[i];
+	}
+	byte[] result = nativeImageProcessor.request(requestData.getData());
+	DataBufferByte resultData = new DataBufferByte(result, result.length);
+	System.out.println(resultData.getElem(0));
+	return 0;
     }
 
     private void fireEvent(final int dropPosition) {
